@@ -1,5 +1,5 @@
-import { isDisabled } from '@testing-library/user-event/dist/utils';
 import './index.css';
+import { useState } from 'react';
 
 const initialFriends = [
   {
@@ -22,15 +22,28 @@ const initialFriends = [
   },
 ];
 
+function Button({children, onClick}) {
+  return <button className='button' onClick={onClick}>{children}</button>;
+}
+
 export default function App() {
-  return <div className="app">
+  const [showAddFriend, setShowAddFriend] = useState(false);
+
+  function handleShowAddFriend() {
+    setShowAddFriend(show => !show);
+  }
+  return (
+  <div className="app">
     <div className='sidebar'>
     <FriendsList/>
-    <FormAddFriend/>
-    <Button>Add friend</Button>
-    </div>
+    {showAddFriend && <FormAddFriend/>}
+    <Button onClick={handleShowAddFriend}>{showAddFriend ? "Close" : "Add friend"}</Button> 
+    </div> 
+
     <FormSplitBill/>
   </div>
+
+  );
 }
 
 function FriendsList() {
@@ -58,14 +71,10 @@ function Friend({friend}) {
   );
 }
 
-function Button({children}) {
-  return <button className='button'>{children}</button>;
-}
-
 function FormAddFriend() {
   return (
     <form className='form-add-friend'>
-      <label>🧑‍🤝‍🧑Friend name</label>
+      <label>👩🏻Friend name</label>
       <input type="text" />
 
       <label>🌇 Image URL</label>
