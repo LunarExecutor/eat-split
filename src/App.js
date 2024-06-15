@@ -80,9 +80,10 @@ function FriendsList({friends, onSelection, selectedFriend}) {
 function Friend({friend, onSelection, selectedFriend}) {
       const isSelected = selectedFriend?.id === friend.id;
   return (
-    <li className={isSelected ? "friend selected" : ""}>
+    <li className={isSelected ? "selected" : ""}>
       <img src= {friend.image} alt={friend.name} />
       <h3>{friend.name}</h3>
+      
       {friend.balance < 0 && <p className='red'>You owe {friend.name} {Math.abs(friend.balance)}$</p>}
       {friend.balance > 0 && <p className='green'>{friend.name} owes you {friend.balance}$</p>}
       {friend.balance === 0 && <p>You and {friend.name} are even</p>}
@@ -161,3 +162,35 @@ function FormSplitBill({selectedFriend, onSplitFriend}) {
     <Button>Split bill</Button>
   </form>
 }
+
+
+/*What the important concepts i learned from this project?
+
+  1. State management, ex: useState
+
+  2. Component structure, ex: Parent and children
+
+  3. Props and state, ex: Props: Props are used to pass data and functions from parent components to child components.
+   For instance, FriendsList receives the list of friends and a function to handle friend selection.
+
+  4. Event handling, ex: onClick or onChange or onSubmit
+
+  5. Conditional rendering, ex: ternary operator 
+  {showAddFriend && <FormAddFriend onAddFriend={handleAddFriend}/>}
+
+  6. Controlled components, ex:<input type="text" value={name} onChange={e => setName(e.target.value)}/>
+
+  7. Reusability, ex: button component that can be used in multiple places
+  <Button onClick={() => onSelection(friend)}>{isSelected ? "Close" : "Select"}</Button>
+
+  8. Derived state, ex: const paidByFriend = bill ? bill - paidByUser : "";
+
+  9. Conditional CSS classes, ex: <li className={isSelected ? "selected" : ""}>
+
+  10. Forms and validation, ex: function handleSubmit(e) {
+  e.preventDefault();
+  if (!name || !image) return;
+  ...
+}
+ 
+  */
